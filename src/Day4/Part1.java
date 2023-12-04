@@ -20,17 +20,64 @@ public class Part1 {
         return lines.toArray(tmp);
     }
 
-    public static void solveDay(){
+    public static int solvePart1(String filePath) {
+        int points = 0;
         ArrayList<Card> cards = new ArrayList<>();
-        String[] cardsStr = readFile("src/Day4/demo.txt");
+        String[] cardsStr = readFile(filePath);
         /* Remove the card index, keeping only the numbers */
-        for (int i = 0; i < cardsStr.length; i++){
-            cardsStr[i] = cardsStr[i].replaceFirst("Card [0-9]+:", "");
+        for (int i = 0; i < cardsStr.length; i++) {
+            cardsStr[i] = cardsStr[i].replaceFirst("Card[ ]+[0-9]+:", "");
+        }
+        /* Convert to Card Object */
+        for (String str : cardsStr) {
+            cards.add(new Card(str));
         }
 
+        for (Card card : cards) {
+            points += card.getPoints();
+        }
+
+        return points;
+    }
+
+    public static int solvePart2(String filePath) {
+        int totalCards = 0;
+        ArrayList<Card> cards = new ArrayList<>();
+        String[] cardsStr = readFile(filePath);
+        /* Remove the card index, keeping only the numbers */
+        for (int i = 0; i < cardsStr.length; i++) {
+            cardsStr[i] = cardsStr[i].replaceFirst("Card[ ]+[0-9]+:", "");
+        }
+        /* Convert to Card Object */
+        for (String str : cardsStr) {
+            cards.add(new Card(str));
+        }
+
+        /* Calculate card moleplicity */
+        for (int i = 0; i < cards.size(); i++) {
+            int cardWinning = cards.get(i).getPresences();
+            while (cardWinning > 0) {
+                try {
+                    cards.get(i + cardWinning).molteplicita =
+                            (cards.get(i + cardWinning).molteplicita) + (cards.get(i).molteplicita);
+
+                } catch (IndexOutOfBoundsException ignored) {}
+                cardWinning--;
+            }
+        }
+
+        /* Count cards */
+        for( Card card :cards){
+            totalCards += card.molteplicita;
+        }
+
+        return totalCards;
     }
 
     public static void main(String[] args) {
-        solveDay();
+        int points = solvePart1("src/Day4/input.txt");
+        System.out.println("Part1 : " + points);
+        int numCards = solvePart2("src/Day4/input.txt");
+        System.out.println("Part2 : " + numCards);
     }
 }

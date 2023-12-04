@@ -6,33 +6,56 @@ public class Card {
     ArrayList<Integer> winningNumbers = new ArrayList<>();
     ArrayList<Integer> cardNumbers = new ArrayList<>();
 
-    public Card(ArrayList<Integer> winningNumbers, ArrayList<Integer> cardNumbers) {
-        this.winningNumbers = winningNumbers;
-        this.cardNumbers = cardNumbers;
-    }
-
-    public Card(String[] card) {
-        /* Composed of:
-         * [0] space separated winningNumbers
-         * [1] space separated cardNumbers
-         * */
-        String[] win = card[0].split(" ");
-        String[] num = card[1].split(" ");
-
-        for (String str : win) {
-            winningNumbers.add(Integer.parseInt(str));
-        }
-        for (String str : num) {
-            cardNumbers.add(Integer.parseInt(str));
-        }
-    }
-
     @Override
     public String toString() {
         return "Day4.Card{" +
                 "winningNumbers=" + winningNumbers +
                 ", cardNumbers=" + cardNumbers +
-                '}';
+                ", molteplicita=" + molteplicita +
+                ", presences=" + getPresences() +
+                ", points=" + getPoints() +
+                "}\n";
+    }
+
+    int molteplicita = 1;
+
+    public Card(ArrayList<Integer> winningNumbers, ArrayList<Integer> cardNumbers) {
+        this.winningNumbers = winningNumbers;
+        this.cardNumbers = cardNumbers;
+    }
+
+    public Card(String card) {
+        /* Composed of:
+         * [0] space separated winningNumbers
+         * [1] space separated cardNumbers
+         * */
+        String[] cardSplit = card.split("\\|");
+        String[] win = cardSplit[0].split(" ");
+        String[] num = cardSplit[1].split(" ");
+
+        for (String str : win) {
+            if (!str.isEmpty())
+                winningNumbers.add(Integer.parseInt(str));
+        }
+        for (String str : num) {
+            if (!str.isEmpty())
+                cardNumbers.add(Integer.parseInt(str));
+        }
+    }
+
+    public int getPresences(){
+        int presences = 0;
+        for(int wantedNumber: winningNumbers){
+            if (cardNumbers.contains(wantedNumber)){
+                presences++;
+            }
+        }
+        return presences;
+    }
+
+    public int getPoints(){
+        /* Calculate points */
+        return (int) Math.pow(2, getPresences() - 1);
     }
 
     public ArrayList<Integer> getWinningNumbers() {
