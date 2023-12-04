@@ -3,8 +3,8 @@ package Day4;
 import java.util.ArrayList;
 
 public class Card {
-    ArrayList<Integer> winningNumbers;
-    ArrayList<Integer> cardNumbers;
+    ArrayList<Integer> winningNumbers = new ArrayList<>();
+    ArrayList<Integer> cardNumbers = new ArrayList<>();
 
     public Card(ArrayList<Integer> winningNumbers, ArrayList<Integer> cardNumbers) {
         this.winningNumbers = winningNumbers;
@@ -13,12 +13,18 @@ public class Card {
 
     public Card(String[] card) {
         /* Composed of:
-        * [0] space separated winningNumbers
-        * [1] space separated cardNumbers
-        * */
+         * [0] space separated winningNumbers
+         * [1] space separated cardNumbers
+         * */
         String[] win = card[0].split(" ");
         String[] num = card[1].split(" ");
 
+        for (String str : win) {
+            winningNumbers.add(Integer.parseInt(str));
+        }
+        for (String str : num) {
+            cardNumbers.add(Integer.parseInt(str));
+        }
     }
 
     @Override

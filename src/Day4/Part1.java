@@ -21,6 +21,12 @@ public class Part1 {
     }
 
     public static void solveDay(){
+        ArrayList<Card> cards = new ArrayList<>();
+        String[] cardsStr = readFile("src/Day4/demo.txt");
+        /* Remove the card index, keeping only the numbers */
+        for (int i = 0; i < cardsStr.length; i++){
+            cardsStr[i] = cardsStr[i].replaceFirst("Card [0-9]+:", "");
+        }
 
     }
 
