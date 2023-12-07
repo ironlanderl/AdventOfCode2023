@@ -13,6 +13,6 @@ class Day6Tests {
         assertEquals(8, new Race(15, 40).getPossibleWinNumber());
         assertEquals(9, new Race(30, 200).getPossibleWinNumber());
 
-        assertEquals(71503, new Race(71530, new BigInteger("940200")).getPossibleWinNumberBig());
+        assertEquals(71503, new Race(71530, 940200).getPossibleWinNumber());
     }
 }
